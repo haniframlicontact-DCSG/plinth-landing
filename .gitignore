@@ -1,0 +1,5 @@
+.claude/
+.superpowers/
+components/
+pages/
+*.DS_Store
