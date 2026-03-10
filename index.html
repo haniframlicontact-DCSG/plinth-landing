@@ -58,12 +58,21 @@ body::after {
 /* SCARCITY BANNER */
 #slots-banner {
   position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
-  height: 40px; background: var(--orange);
+  height: auto; min-height: 44px; padding: 10px 16px;
+  background: var(--orange);
   display: flex; align-items: center; justify-content: center;
+  flex-wrap: nowrap; white-space: nowrap; overflow: hidden;
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--charcoal);
   animation: bannerSlideDown 0.6s var(--ease) 0.3s both;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+#slots-banner.banner-hidden {
+  opacity: 0;
+  transform: translateY(-100%);
+  pointer-events: none;
 }
 @keyframes bannerSlideDown {
   from { transform: translateY(-100%); }
@@ -71,7 +80,9 @@ body::after {
 }
 .slots-inner {
   display: flex; align-items: center; justify-content: center;
+  gap: 10px; width: 100%; flex-wrap: nowrap;
 }
+.slots-hide-mobile { display: inline; }
 .slots-pulse {
   display: block; width: 8px; height: 8px;
   background: var(--charcoal); border-radius: 50%;
@@ -106,7 +117,8 @@ nav {
   background: rgba(28,28,28,0.94);
   backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: padding 0.3s var(--ease);
+  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.3s var(--ease);
 }
 nav.scrolled { padding: 14px 48px; }
 .nav-wordmark {
@@ -565,9 +577,12 @@ h1.hero-title .accent { color: var(--orange); }
 .waitlist-sub {
   font-size: 17px; font-weight: 300; color: var(--steel); line-height: 1.75; margin-bottom: 56px;
 }
-.tally-container { display: block; width: 100%; overflow: hidden; position: relative; }
+.tally-container {
+  display: block; width: 100%; max-width: 100%;
+  overflow: hidden; -webkit-overflow-scrolling: touch; position: relative;
+}
 .tally-container iframe {
-  width: 100%; min-height: 480px; border: none;
+  width: 1px; min-width: 100%; min-height: 600px; border: none;
   background: transparent; display: block;
 }
 .waitlist-note {
@@ -662,7 +677,21 @@ footer {
   .marquee-track { animation: none; }
 }
 
-/* RESPONSIVE */
+/* RESPONSIVE — 480px (iPhone SE / 14 / 15) */
+@media (max-width: 480px) {
+  .slots-text { font-size: 10px; letter-spacing: 0.06em; }
+  .slots-hide-mobile { display: none; }
+  #progress-bar { top: 44px; }
+  nav { top: 44px; }
+  #hero { padding: 180px 16px 60px; }
+  #waitlist { padding: 60px 16px; }
+  .waitlist-inner { padding: 32px 20px; }
+  .waitlist-headline { font-size: clamp(28px, 8vw, 40px); }
+  .waitlist-sub { font-size: 15px; }
+  .tally-container iframe { min-height: 640px; }
+}
+
+/* RESPONSIVE — 768px (all standard mobile) */
 @media (max-width: 768px) {
   nav { padding: 16px 24px; flex-wrap: wrap; }
   nav.scrolled { padding: 12px 24px; }
@@ -678,8 +707,11 @@ footer {
   .nav-links a.nav-cta { display: inline-block; margin-top: 8px; padding: 12px 20px; }
 
   #slots-banner { font-size: 10px; }
-  .slots-text-desc { display: none; }
-  #hero { padding: 160px 24px 60px; }
+  .slots-text { font-size: 10px; letter-spacing: 0.06em; }
+  .slots-hide-mobile { display: none; }
+  #progress-bar { top: 44px; }
+  nav { top: 44px; }
+  #hero { padding: 190px 24px 60px; }
   .hero-stats { flex-wrap: wrap; }
   .hero-stat { min-width: 50%; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 16px 0; }
   .hero-ghost { display: none; }
@@ -696,8 +728,8 @@ footer {
   .about-initials { font-size: 28px; }
   .about-ghost { font-size: clamp(80px, 22vw, 140px); }
   #waitlist { padding: 72px 24px; }
-  .waitlist-inner { padding: 40px 28px; }
-  .tally-container iframe { min-height: 480px; }
+  .waitlist-inner { padding: 40px 24px; }
+  .tally-container iframe { min-height: 620px; }
   footer { flex-direction: column; gap: 20px; text-align: center; }
 }
 </style>
@@ -709,8 +741,7 @@ footer {
   <div class="slots-inner">
     <span class="slots-pulse"></span>
     <span class="slots-text">
-      <span class="slots-count">5</span><span class="slots-text-desc"> pilot slots remaining —
-      free sessions · no charge · structured decision facilitation</span>
+      <span class="slots-count">5</span> pilot slots remaining<span class="slots-hide-mobile"> — free sessions · no charge · structured decision facilitation</span>
     </span>
     <a href="#waitlist" class="slots-cta">Claim a slot →</a>
   </div>
@@ -973,16 +1004,9 @@ footer {
 // JS-loaded class activates all animations
 document.body.classList.add('js-loaded');
 
-// Progress bar
+// Progress bar + nav references
 const bar = document.getElementById('progress-bar');
-window.addEventListener('scroll', () => {
-  const pct = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
-  bar.style.width = pct + '%';
-}, { passive: true });
-
-// Nav compact
 const nav = document.getElementById('nav');
-window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 80), { passive: true });
 
 // Hamburger
 const hamburger = document.getElementById('hamburger');
@@ -1047,59 +1071,77 @@ function replayHeroAnimations() {
   });
 }
 
-// Scroll reveal — bidirectional
-// Entry:  top < 88% vh → add .in-view   (scrolling down)
-// Exit:   top > 88% vh → remove .in-view (scrolling up only, prevents flicker)
+// ── Unified scroll handler (rAF-throttled) ──────────────────
+// Covers: progress bar · banner hide/show · nav compact · reveal animations
 let lastScrollY = window.scrollY;
 let heroSentAway = false;
+let ticking = false;
 
-function checkReveal() {
-  const vh = window.innerHeight;
+function handleScroll() {
   const currentScrollY = window.scrollY;
   const scrollingUp = currentScrollY < lastScrollY;
-  lastScrollY = currentScrollY;
 
-  // ── ENTRY ──
+  // 1. Progress bar
+  const pct = currentScrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
+  bar.style.width = pct + '%';
+
+  // 2. Banner visibility — fade out after 80px, fade back in near top
+  const banner = document.getElementById('slots-banner');
+  const bannerHeight = banner.offsetHeight;
+  if (currentScrollY > 80) {
+    banner.classList.add('banner-hidden');
+    nav.style.top = '0px';
+  } else {
+    banner.classList.remove('banner-hidden');
+    nav.style.top = bannerHeight + 'px';
+  }
+
+  // 3. Nav compact
+  nav.classList.toggle('scrolled', currentScrollY > 80);
+
+  // 4. Reveal animations — entry (scroll-down)
+  const vh = window.innerHeight;
   document.querySelectorAll('.reveal:not(.in-view)').forEach(el => {
-    const top = el.getBoundingClientRect().top;
-    if (top < vh * 0.88) {
+    if (el.getBoundingClientRect().top < vh * 0.88) {
       el.classList.add('in-view');
       el.querySelectorAll('.stat-number[data-count]').forEach(numEl => {
-        const target = parseInt(numEl.dataset.count);
-        const suffix = numEl.dataset.suffix || '';
-        const from   = parseInt(numEl.textContent) || 0;
-        animateCount(numEl, from, target, suffix, 1200);
+        animateCount(numEl, parseInt(numEl.textContent) || 0,
+          parseInt(numEl.dataset.count), numEl.dataset.suffix || '', 1200);
       });
     }
   });
 
-  // ── EXIT (scroll-up only) ──
+  // 5. Reveal animations — exit (scroll-up only, prevents flicker)
   if (scrollingUp) {
     document.querySelectorAll('.reveal.in-view').forEach(el => {
-      const top = el.getBoundingClientRect().top;
-      if (top > vh * 0.88) {
+      if (el.getBoundingClientRect().top > vh * 0.88) {
         el.classList.remove('in-view');
         el.querySelectorAll('.stat-number[data-count]').forEach(numEl => {
-          const suffix = numEl.dataset.suffix || '';
-          const from   = parseInt(numEl.textContent) || 0;
-          animateCount(numEl, from, 0, suffix, 800);
+          animateCount(numEl, parseInt(numEl.textContent) || 0,
+            0, numEl.dataset.suffix || '', 800);
         });
       }
     });
-
-    // Hero replay: trigger once when scrolled nearly back to top
+    // Hero replay: once scrolled nearly back to top
     if (heroSentAway && currentScrollY < 60) {
       replayHeroAnimations();
       heroSentAway = false;
     }
   }
 
-  // Track when hero has been scrolled past
   if (currentScrollY > vh) heroSentAway = true;
+  lastScrollY = currentScrollY;
+  ticking = false;
 }
 
-window.addEventListener('scroll', checkReveal, { passive: true });
-checkReveal(); // run once on load for elements already in view
+window.addEventListener('scroll', () => {
+  if (!ticking) {
+    requestAnimationFrame(handleScroll);
+    ticking = true;
+  }
+}, { passive: true });
+
+handleScroll(); // set initial state on load
 
 // Slots bar — animate to 62.5% (5/8) when pricing section enters viewport
 (function() {
