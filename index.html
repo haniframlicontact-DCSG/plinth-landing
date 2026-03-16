@@ -116,6 +116,7 @@ nav {
   padding: 20px 48px;
   background: rgba(28,28,28,0.94);
   backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255,255,255,0.06);
   transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
               padding 0.3s var(--ease);
@@ -682,7 +683,6 @@ footer {
   .slots-text { font-size: 10px; letter-spacing: 0.06em; }
   .slots-hide-mobile { display: none; }
   #progress-bar { top: 44px; }
-  nav { top: 44px; }
   #hero { padding: 180px 16px 60px; }
   .hero-mono-label { letter-spacing: 0.08em; font-size: 10px; }
   .hero-mono-label .label-text { white-space: normal; }
@@ -692,6 +692,9 @@ footer {
   .waitlist-sub { font-size: 15px; }
   .tally-container iframe { min-height: 640px; }
 }
+
+/* Anchor scroll offset — prevents fixed nav from covering section headings */
+section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 
 /* RESPONSIVE — 768px (all standard mobile) */
 @media (max-width: 768px) {
@@ -712,7 +715,7 @@ footer {
   .slots-text { font-size: 10px; letter-spacing: 0.06em; }
   .slots-hide-mobile { display: none; }
   #progress-bar { top: 44px; }
-  nav { top: 44px; }
+  section[id], #waitlist, #hero { scroll-margin-top: 70px; }
   #hero { padding: 190px 24px 60px; }
   .hero-mono-label { letter-spacing: 0.12em; }
   .hero-mono-label .label-text { white-space: normal; }
@@ -1074,6 +1077,16 @@ function replayHeroAnimations() {
     el.style.animation = '';
   });
 }
+
+// ── Nav top: set from actual banner height on load + resize ──
+function updateNavTop() {
+  const banner = document.getElementById('slots-banner');
+  if (!banner.classList.contains('banner-hidden')) {
+    nav.style.top = banner.offsetHeight + 'px';
+  }
+}
+updateNavTop();
+window.addEventListener('resize', updateNavTop, { passive: true });
 
 // ── Unified scroll handler (rAF-throttled) ──────────────────
 // Covers: progress bar · banner hide/show · nav compact · reveal animations
