@@ -587,10 +587,10 @@ h1.hero-title .accent { color: var(--orange); }
   pointer-events: none;
 }
 .waitlist-inner {
-  max-width: 640px; margin: 0 auto; position: relative; z-index: 2;
+  max-width: 960px; margin: 0 auto; position: relative; z-index: 2;
   border: 1px solid rgba(232,97,26,0.2);
   background: rgba(232,97,26,0.04);
-  padding: 64px 56px;
+  padding: 64px 56px 48px;
 }
 .waitlist-mono {
   font-family: var(--font-mono); font-size: 10px;
@@ -609,16 +609,11 @@ h1.hero-title .accent { color: var(--orange); }
   font-size: 17px; font-weight: 300; color: var(--steel); line-height: 1.75; margin-bottom: 56px;
 }
 .tally-container {
-  display: block; width: 100%; max-width: 960px;
-  margin: 0 auto; overflow: hidden;
+  display: block; width: 100%; overflow: hidden;
 }
 .tally-container iframe {
   width: 1px; min-width: 100%; border: none;
   background: transparent; display: block;
-}
-.waitlist-footer {
-  padding: 24px 48px 48px;
-  display: flex; flex-direction: column; align-items: center; gap: 16px;
 }
 .waitlist-note {
   font-family: var(--font-mono); font-size: 10px;
@@ -1133,11 +1128,9 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
     <p class="waitlist-mono">Join the Waitlist</p>
     <h2 class="waitlist-headline reveal">Ready to stop deliberating?</h2>
     <p class="waitlist-sub reveal reveal-delay-1">Pilot sessions are free. 5 slots remaining. Join the waitlist to claim yours.</p>
-  </div>
-  <div class="tally-container reveal">
-    <iframe data-tally-src="https://tally.so/embed/q4BJoY?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1" loading="lazy" width="100%" height="686" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist — Plinth."></iframe>
-  </div>
-  <div class="waitlist-footer">
+    <div class="tally-container reveal">
+      <iframe data-tally-src="https://tally.so/embed/q4BJoY?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1" loading="lazy" width="100%" height="686" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist — Plinth."></iframe>
+    </div>
     <p class="waitlist-note">No commitment. No spam. Unsubscribe anytime.</p>
     <div class="waitlist-chips">
       <span class="chip">Early session access</span>
