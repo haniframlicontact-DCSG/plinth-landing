@@ -2,10 +2,14 @@
   "version": 2,
   "builds": [
     { "src": "index.html", "use": "@vercel/static" },
-    { "src": "googlee6f3ee4fe3b1487e.html", "use": "@vercel/static" }
+    { "src": "googlee6f3ee4fe3b1487e.html", "use": "@vercel/static" },
+    { "src": "sitemap.xml", "use": "@vercel/static" },
+    { "src": "robots.txt", "use": "@vercel/static" }
   ],
   "routes": [
     { "src": "/googlee6f3ee4fe3b1487e.html", "dest": "/googlee6f3ee4fe3b1487e.html" },
+    { "src": "/sitemap.xml", "dest": "/sitemap.xml" },
+    { "src": "/robots.txt", "dest": "/robots.txt" },
     { "src": "/(.*)", "dest": "/index.html" }
   ]
 }
