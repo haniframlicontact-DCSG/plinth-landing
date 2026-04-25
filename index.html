@@ -679,6 +679,25 @@ footer {
 }
 .citations-list a:hover { border-color: var(--orange); }
 
+/* CALCULATOR */
+.calc-container {
+  width: 100%;
+  border: 1px solid rgba(255,255,255,0.07);
+  overflow: hidden;
+  background: var(--charcoal-2);
+}
+.calc-container iframe {
+  width: 1px;
+  min-width: 100%;
+  min-height: 700px;
+  border: none;
+  display: block;
+  background: transparent;
+}
+@media (max-width: 768px) {
+  .calc-container iframe { min-height: 820px; }
+}
+
 /* ── REVEAL SYSTEM ── */
 /* Base: visible without JS */
 .reveal { opacity: 1; transform: none; }
@@ -814,6 +833,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 <nav id="nav">
   <a href="#" class="nav-wordmark">PLINTH<span>.</span></a>
   <ul class="nav-links">
+    <li><a href="#calculator">Calculator</a></li>
     <li><a href="#process">Process</a></li>
     <li><a href="#framework">Framework</a></li>
     <li><a href="#pricing">Pricing</a></li>
@@ -878,6 +898,24 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
     <div class="problem-insight reveal reveal-left reveal-delay-2">
       <p>There is a structural gap between <strong>informal emotional support</strong> (friends, mentors) and <strong>expensive advisory services</strong> (consultants, coaches). Plinth. addresses that gap: structured facilitation focused exclusively on the decision process.</p>
     </div>
+  </div>
+</section>
+
+<div class="rule"></div>
+
+<!-- ═══════════════════ CALCULATOR ═══════════════════ -->
+<section id="calculator" class="section">
+  <p class="mono-label reveal">The Cost of Inaction</p>
+  <h2 class="section-headline reveal reveal-delay-1">What is staying stuck actually costing you?</h2>
+  <p class="section-sub reveal reveal-delay-2">Input your situation. Get a personalised estimate of what prolonged deliberation is costing you in time, opportunity, and momentum.</p>
+  <div class="calc-container reveal reveal-delay-2">
+    <iframe
+      src="https://plinth-cost-of-inaction-calculator.netlify.app"
+      title="Cost of Inaction Calculator — Plinth."
+      loading="lazy"
+      scrolling="no"
+      frameborder="0"
+    ></iframe>
   </div>
 </section>
 
