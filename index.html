@@ -856,7 +856,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
   <div class="slots-inner">
     <span class="slots-pulse"></span>
     <span class="slots-text">
-      <span class="slots-count">5</span> pilot slots remaining<span class="slots-hide-mobile"> — free sessions · no charge · structured decision facilitation</span>
+      <span class="slots-count">4</span> pilot slots remaining<span class="slots-hide-mobile"> — free sessions · no charge · structured decision facilitation</span>
     </span>
     <a href="#waitlist" class="slots-cta">Claim a slot →</a>
   </div>
@@ -1067,16 +1067,16 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
     <div class="pricing-left">
       <div class="pricing-badge">Free · Pilot Phase</div>
       <div class="pricing-amount">FREE<span class="pricing-amount-sub">during pilot</span></div>
-      <p class="pricing-note">5 pilot slots · No charge · Standard rate SGD 400–500 post-pilot</p>
+      <p class="pricing-note">4 pilot slots · No charge · Standard rate SGD 400–500 post-pilot</p>
       <div class="slots-remaining">
         <span class="slots-bar-wrap"><span class="slots-bar-fill"></span></span>
-        <span class="slots-remaining-label">5 of 8 slots remaining</span>
+        <span class="slots-remaining-label">4 of 8 slots remaining</span>
       </div>
       <ul class="pricing-includes">
         <li>90-minute structured decision session (Zoom)</li>
         <li>Pre-session diagnostic questionnaire</li>
         <li>AI-powered intake classification</li>
-        <li>Decision documentation — delivered within 24 hours</li>
+        <li>Decision documentation — delivered within 72 hours <span style="display:block;font-size:12px;color:var(--steel);margin-top:4px;">Expedited delivery (24 hours) available on request.</span></li>
         <li>2-week accountability check-in</li>
       </ul>
       <div class="pricing-guarantee">
@@ -1127,7 +1127,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
     <div class="waitlist-rule" aria-hidden="true"></div>
     <p class="waitlist-mono">Join the Waitlist</p>
     <h2 class="waitlist-headline reveal">Ready to stop deliberating?</h2>
-    <p class="waitlist-sub reveal reveal-delay-1">Pilot sessions are free. 5 slots remaining. Join the waitlist to claim yours.</p>
+    <p class="waitlist-sub reveal reveal-delay-1">Pilot sessions are free. 4 slots remaining. Join the waitlist to claim yours.</p>
     <div class="tally-container reveal">
       <iframe src="https://tally.so/embed/q4BJoY?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1&formEventsForwarding=1" loading="lazy" width="100%" height="686" frameborder="0" marginheight="0" marginwidth="0" title="Join the Waitlist — Plinth."></iframe>
     </div>
@@ -1248,7 +1248,7 @@ function handleScroll() {
   // 2. Banner visibility — fade out after 80px, fade back in near top
   const banner = document.getElementById('slots-banner');
   const bannerHeight = banner.offsetHeight;
-  if (currentScrollY > 80) {
+  if (currentScrollY > 300) {
     banner.classList.add('banner-hidden');
     nav.style.top = '0px';
   } else {
@@ -1325,14 +1325,14 @@ handleScroll(); // set initial state on load
   });
 })();
 
-// Slots bar — animate to 62.5% (5/8) when pricing section enters viewport
+// Slots bar — animate to 50% (4/8) when pricing section enters viewport
 (function() {
   const fill = document.querySelector('.slots-bar-fill');
   if (!fill) return;
   const io = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        fill.style.width = '62.5%';
+        fill.style.width = '50%';
         io.unobserve(entry.target);
       }
     });
