@@ -652,6 +652,33 @@ footer {
 .footer-links a:hover { color: var(--white); }
 .footer-copy { font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.08em; color: var(--steel); }
 
+/* CITATIONS */
+.citations-block {
+  margin-top: 56px;
+  padding: 32px 40px;
+  border: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.02);
+}
+.citations-label {
+  font-family: var(--font-mono); font-size: 9px;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--orange); margin-bottom: 20px;
+}
+.citations-list { list-style: none; }
+.citations-list li {
+  font-size: 13px; font-weight: 300; color: var(--steel);
+  line-height: 1.7; padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.citations-list li:last-child { border-bottom: none; }
+.citations-list em { font-style: italic; color: rgba(255,255,255,0.5); }
+.citations-list a {
+  color: var(--orange); text-decoration: none;
+  border-bottom: 1px solid rgba(232,97,26,0.3);
+  transition: border-color 0.2s;
+}
+.citations-list a:hover { border-color: var(--orange); }
+
 /* ── REVEAL SYSTEM ── */
 /* Base: visible without JS */
 .reveal { opacity: 1; transform: none; }
@@ -809,7 +836,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
       <span class="cursor" aria-hidden="true"></span>
     </p>
     <h1 class="hero-title">From months of deliberation<br>to a <span class="accent">committed decision.</span></h1>
-    <p class="hero-sub">A 90-minute structured session for founders and senior professionals who have the information — but cannot cross the threshold to action.</p>
+    <p class="hero-sub">Plinth. is a structured decision facilitation service in Singapore that uses a 90-minute research-backed framework to move founders and senior professionals from deliberation to a committed action, drawing on 58+ academic sources across behavioural economics and decision science.</p>
     <div class="hero-actions">
       <a href="#waitlist" class="btn-primary">Join the Waitlist</a>
       <a href="#process" class="btn-ghost">See how it works</a>
@@ -876,8 +903,8 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 <!-- ═══════════════════ PROCESS ═══════════════════ -->
 <section id="process" class="section">
   <p class="mono-label reveal">The Process</p>
-  <h2 class="section-headline reveal reveal-delay-1">Three phases. One session. One committed action.</h2>
-  <p class="section-sub reveal reveal-delay-2">Each session follows a research-backed structure designed to move from problem definition to committed action within 90 minutes.</p>
+  <h2 class="section-headline reveal reveal-delay-1">What is the 90-minute decision facilitation process?</h2>
+  <p class="section-sub reveal reveal-delay-2">Plinth.'s facilitation follows three time-boxed phases — Define &amp; Diagnose, Explore &amp; Converge, and Commit &amp; Contract — within a single 90-minute session. Every session ends with a specific committed action, a named date, and a structured implementation intention device to close the intention-action gap.</p>
   <div class="steps">
     <div class="step reveal reveal-clip">
       <span class="step-ghost" aria-hidden="true">01</span>
@@ -906,8 +933,8 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 <section id="framework" style="background:var(--charcoal-2);padding:0;">
   <div class="framework-inner">
     <p class="mono-label reveal">The Framework</p>
-    <h2 class="section-headline reveal reveal-delay-1">Built on decision science. Not intuition.</h2>
-    <p class="section-sub reveal reveal-delay-2">The facilitation framework draws from 58+ academic sources across six research domains.</p>
+    <h2 class="section-headline reveal reveal-delay-1">How does decision science solve founder paralysis?</h2>
+    <p class="section-sub reveal reveal-delay-2">The Plinth. framework draws from 58+ peer-reviewed academic sources across six domains. Core pillars include Gollwitzer &amp; Sheeran's implementation intentions meta-analysis (94 studies, d=.65), Kahneman &amp; Tversky's loss aversion findings, and Loewenstein's hot-cold empathy gap research — applied to eliminate the structural root causes of decision paralysis.</p>
     <div class="framework-grid">
       <div class="framework-item reveal reveal-scale">
         <div class="tag">Behavioural Economics</div>
@@ -939,6 +966,17 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
         <h3>Structured Externalisation</h3>
         <p>Offloading decision variables from working memory into a documented framework reduces the cognitive overhead that sustains paralysis and frees capacity for convergence.</p>
       </div>
+    </div>
+
+    <div class="citations-block reveal reveal-delay-2">
+      <p class="citations-label">Selected Research Citations</p>
+      <ul class="citations-list">
+        <li>Gollwitzer, P. M. (1999). "Implementation Intentions: Strong Effects of Simple Plans." <em>American Psychologist, 54</em>(7), 493–503. <a href="https://doi.org/10.1037/0003-066X.54.7.493" target="_blank" rel="noopener">doi.org/10.1037/0003-066X.54.7.493</a></li>
+        <li>Fleming, S. M., et al. (2010). "Overcoming status quo bias in the human brain." <em>PNAS, 107</em>(13), 6005–6009. <a href="https://doi.org/10.1073/pnas.0910380107" target="_blank" rel="noopener">doi.org/10.1073/pnas.0910380107</a></li>
+        <li>Loewenstein, G. (2005). "Hot-Cold Empathy Gaps and Medical Decision Making." <em>Health Psychology, 24</em>(4), S49–S56. <a href="https://doi.org/10.1037/0278-6133.24.4.S49" target="_blank" rel="noopener">doi.org/10.1037/0278-6133.24.4.S49</a></li>
+        <li>Dąbrowa, N. (2025). "Decision Paralysis Is Not Procrastination: a Cognitive-Behavioral Account." <em>Acta Humanitatis</em>. <a href="https://doi.org/10.5709/ah-03.03.2025-03" target="_blank" rel="noopener">doi.org/10.5709/ah-03.03.2025-03</a></li>
+        <li>Jull, J., et al. (2021). "Decision coaching for people making healthcare decisions." <em>Cochrane Database of Systematic Reviews</em>. <a href="https://doi.org/10.1002/14651858.CD013385.pub2" target="_blank" rel="noopener">doi.org/10.1002/14651858.CD013385.pub2</a></li>
+      </ul>
     </div>
   </div>
 </section>
