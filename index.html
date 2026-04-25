@@ -680,22 +680,55 @@ footer {
 .citations-list a:hover { border-color: var(--orange); }
 
 /* CALCULATOR */
+.calc-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-body);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  background: var(--orange);
+  border: none;
+  padding: 16px 36px;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+}
+.calc-toggle:hover { background: var(--orange-alt); }
+.calc-toggle-icon {
+  display: inline-block;
+  transition: transform 0.4s var(--ease);
+  font-size: 14px;
+}
+.calc-toggle[aria-expanded="true"] .calc-toggle-icon {
+  transform: rotate(180deg);
+}
 .calc-container {
   width: 100%;
-  border: 1px solid rgba(255,255,255,0.07);
   overflow: hidden;
-  background: var(--charcoal-2);
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.7s cubic-bezier(0.16, 1, 0.3, 1),
+              opacity 0.4s ease;
+  border-top: 0 solid rgba(255,255,255,0.07);
+}
+.calc-container.is-open {
+  max-height: 1000px;
+  opacity: 1;
+  border-top-width: 1px;
 }
 .calc-container iframe {
-  width: 1px;
-  min-width: 100%;
-  min-height: 700px;
+  width: 100%;
+  height: 960px;
   border: none;
   display: block;
   background: transparent;
 }
 @media (max-width: 768px) {
-  .calc-container iframe { min-height: 820px; }
+  .calc-container.is-open { max-height: 1200px; }
+  .calc-container iframe { height: 1150px; }
 }
 
 /* ── REVEAL SYSTEM ── */
@@ -904,16 +937,22 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 <div class="rule"></div>
 
 <!-- ═══════════════════ CALCULATOR ═══════════════════ -->
-<section id="calculator" class="section">
-  <p class="mono-label reveal">The Cost of Inaction</p>
-  <h2 class="section-headline reveal reveal-delay-1">What is staying stuck actually costing you?</h2>
-  <p class="section-sub reveal reveal-delay-2">Input your situation. Get a personalised estimate of what prolonged deliberation is costing you in time, opportunity, and momentum.</p>
-  <div class="calc-container reveal reveal-delay-2">
+<section id="calculator">
+  <div class="section" style="padding-bottom: 40px;">
+    <p class="mono-label reveal">The Cost of Inaction</p>
+    <h2 class="section-headline reveal reveal-delay-1">What is staying stuck actually costing you?</h2>
+    <p class="section-sub reveal reveal-delay-2" style="margin-bottom: 32px;">Input your situation. Get a personalised estimate of what prolonged deliberation is costing you in time, opportunity, and momentum.</p>
+    <button class="calc-toggle reveal reveal-delay-2" id="calc-toggle" aria-expanded="false">
+      <span>Calculate my cost of inaction</span>
+      <span class="calc-toggle-icon">↓</span>
+    </button>
+  </div>
+  <div class="calc-container" id="calc-container" aria-hidden="true">
     <iframe
-      src="https://plinth-cost-of-inaction-calculator.netlify.app"
+      id="calc-iframe"
+      src=""
+      data-src="https://plinth-cost-of-inaction-calculator.netlify.app"
       title="Cost of Inaction Calculator — Plinth."
-      loading="lazy"
-      scrolling="no"
       frameborder="0"
     ></iframe>
   </div>
@@ -1265,6 +1304,28 @@ window.addEventListener('scroll', () => {
 }, { passive: true });
 
 handleScroll(); // set initial state on load
+
+// Calculator toggle — lazy-loads iframe on first open
+(function() {
+  const btn       = document.getElementById('calc-toggle');
+  const container = document.getElementById('calc-container');
+  const iframe    = document.getElementById('calc-iframe');
+  if (!btn) return;
+  btn.addEventListener('click', function() {
+    const isOpen = container.classList.contains('is-open');
+    if (isOpen) {
+      container.classList.remove('is-open');
+      container.setAttribute('aria-hidden', 'true');
+      btn.setAttribute('aria-expanded', 'false');
+    } else {
+      if (!iframe.src) iframe.src = iframe.dataset.src;
+      container.classList.add('is-open');
+      container.setAttribute('aria-hidden', 'false');
+      btn.setAttribute('aria-expanded', 'true');
+      setTimeout(() => container.scrollIntoView({ behavior: 'smooth', block: 'start' }), 120);
+    }
+  });
+})();
 
 // Slots bar — animate to 62.5% (5/8) when pricing section enters viewport
 (function() {
