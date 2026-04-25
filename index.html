@@ -950,7 +950,6 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
   <div class="calc-container" id="calc-container" aria-hidden="true">
     <iframe
       id="calc-iframe"
-      src=""
       data-src="https://plinth-cost-of-inaction-calculator.netlify.app"
       title="Cost of Inaction Calculator — Plinth."
       frameborder="0"
@@ -1318,7 +1317,7 @@ handleScroll(); // set initial state on load
       container.setAttribute('aria-hidden', 'true');
       btn.setAttribute('aria-expanded', 'false');
     } else {
-      if (!iframe.src) iframe.src = iframe.dataset.src;
+      if (!iframe.getAttribute('src')) iframe.src = iframe.dataset.src;
       container.classList.add('is-open');
       container.setAttribute('aria-hidden', 'false');
       btn.setAttribute('aria-expanded', 'true');
