@@ -76,37 +76,38 @@ body::after {
   mix-blend-mode: overlay;
 }
 
-/* PROGRESS BAR */
+/* FIXED HEADER — single fixed layer containing banner + nav */
+#fixed-header {
+  position: fixed; top: 0; left: 0; right: 0;
+  z-index: 1100;
+}
+
+/* PROGRESS BAR — sits at bottom edge of fixed header */
 #progress-bar {
-  position: fixed; top: 40px; left: 0;
+  position: absolute; bottom: 0; left: 0;
   height: 2px; width: 0%;
   background: var(--orange);
-  z-index: 1000;
+  z-index: 10;
   transition: width 0.1s linear;
 }
 
 /* SCARCITY BANNER */
 #slots-banner {
-  position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
-  height: auto; min-height: 44px; padding: 10px 16px;
+  min-height: 44px; padding: 10px 16px;
   background: var(--orange);
   display: flex; align-items: center; justify-content: center;
   flex-wrap: nowrap; white-space: nowrap; overflow: hidden;
   font-family: var(--font-mono); font-size: 11px;
   letter-spacing: 0.12em; text-transform: uppercase;
   color: var(--charcoal);
-  animation: bannerSlideDown 0.6s var(--ease) 0.3s both;
-  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  animation: bannerFadeIn 0.5s var(--ease) 0.2s both;
 }
 #slots-banner.banner-hidden {
-  opacity: 0;
-  transform: translateY(-100%);
-  pointer-events: none;
+  display: none;
 }
-@keyframes bannerSlideDown {
-  from { transform: translateY(-100%); }
-  to   { transform: translateY(0); }
+@keyframes bannerFadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
 }
 .slots-inner {
   display: flex; align-items: center; justify-content: center;
@@ -140,16 +141,11 @@ body::after {
 
 /* NAV */
 nav {
-  position: fixed; top: 42px; left: 0; right: 0;
-  z-index: 900;
   display: flex; justify-content: space-between; align-items: center;
   padding: 20px 48px;
-  background: rgba(28,28,28,0.98);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  background: var(--charcoal);
   border-bottom: 1px solid rgba(255,255,255,0.06);
-  transition: top 0.4s cubic-bezier(0.16, 1, 0.3, 1),
-              padding 0.3s var(--ease);
+  transition: padding 0.3s var(--ease);
 }
 nav.scrolled { padding: 14px 48px; }
 .nav-wordmark {
@@ -790,7 +786,6 @@ footer {
 @media (max-width: 480px) {
   .slots-text { font-size: 10px; letter-spacing: 0.06em; }
   .slots-hide-mobile { display: none; }
-  #progress-bar { top: 44px; }
   #hero { padding: 180px 16px 60px; }
   .hero-mono-label { letter-spacing: 0.08em; font-size: 10px; }
   .hero-mono-label .label-text { white-space: normal; }
@@ -822,7 +817,6 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
   #slots-banner { font-size: 10px; }
   .slots-text { font-size: 10px; letter-spacing: 0.06em; }
   .slots-hide-mobile { display: none; }
-  #progress-bar { top: 44px; }
   section[id], #waitlist, #hero { scroll-margin-top: 70px; }
   #hero { padding: 190px 24px 60px; }
   .hero-mono-label { letter-spacing: 0.12em; }
@@ -850,8 +844,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 </style>
 </head>
 <body>
-<div id="progress-bar"></div>
-
+<div id="fixed-header">
 <div id="slots-banner">
   <div class="slots-inner">
     <span class="slots-pulse"></span>
@@ -876,6 +869,8 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
     <span></span><span></span><span></span>
   </button>
 </nav>
+<div id="progress-bar"></div>
+</div><!-- /#fixed-header -->
 
 <!-- ═══════════════════ HERO ═══════════════════ -->
 <section id="hero">
@@ -1221,13 +1216,6 @@ function replayHeroAnimations() {
   });
 }
 
-// ── Nav top: always sit below the banner ──
-function updateNavTop() {
-  const banner = document.getElementById('slots-banner');
-  nav.style.top = banner.offsetHeight + 'px';
-}
-updateNavTop();
-window.addEventListener('resize', updateNavTop, { passive: true });
 
 // ── Unified scroll handler (rAF-throttled) ──────────────────
 // Covers: progress bar · banner hide/show · nav compact · reveal animations
