@@ -579,7 +579,7 @@ h1.hero-title .accent { color: var(--orange); }
 
 /* WAITLIST */
 #waitlist {
-  padding: 80px 48px 80px; text-align: center; position: relative; overflow: hidden; height: auto;
+  padding: 80px 0; text-align: center; position: relative; overflow: hidden; height: auto;
 }
 #waitlist::before {
   content: ''; position: absolute; inset: 0;
@@ -587,7 +587,7 @@ h1.hero-title .accent { color: var(--orange); }
   pointer-events: none;
 }
 .waitlist-inner {
-  max-width: 960px; margin: 0 auto; position: relative; z-index: 2;
+  width: 100%; position: relative; z-index: 2;
   border: 1px solid rgba(232,97,26,0.2);
   background: rgba(232,97,26,0.04);
   padding: 64px 56px 48px;
@@ -794,7 +794,7 @@ footer {
   #hero { padding: 180px 16px 60px; }
   .hero-mono-label { letter-spacing: 0.08em; font-size: 10px; }
   .hero-mono-label .label-text { white-space: normal; }
-  #waitlist { padding: 60px 16px; }
+  #waitlist { padding: 60px 0; }
   .waitlist-inner { padding: 32px 20px; }
   .waitlist-headline { font-size: clamp(28px, 8vw, 40px); }
   .waitlist-sub { font-size: 15px; }
@@ -842,7 +842,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
   .about-avatar { width: 80px; height: 80px; }
   .about-initials { font-size: 28px; }
   .about-ghost { font-size: clamp(80px, 22vw, 140px); }
-  #waitlist { padding: 72px 24px; }
+  #waitlist { padding: 72px 0; }
   .waitlist-inner { padding: 40px 24px; }
   .tally-container iframe { min-height: 620px; }
   footer { flex-direction: column; gap: 20px; text-align: center; }
