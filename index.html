@@ -806,7 +806,7 @@ section[id], #waitlist, #hero { scroll-margin-top: 90px; }
 
 /* RESPONSIVE — 768px (all standard mobile) */
 @media (max-width: 768px) {
-  nav { padding: 16px 24px; flex-wrap: wrap; }
+  nav { padding: 16px 24px; flex-wrap: wrap; background: var(--charcoal); }
   nav.scrolled { padding: 12px 24px; }
   .nav-hamburger { display: flex; }
   .nav-links {
@@ -1221,12 +1221,10 @@ function replayHeroAnimations() {
   });
 }
 
-// ── Nav top: set from actual banner height on load + resize ──
+// ── Nav top: always sit below the banner ──
 function updateNavTop() {
   const banner = document.getElementById('slots-banner');
-  if (!banner.classList.contains('banner-hidden')) {
-    nav.style.top = banner.offsetHeight + 'px';
-  }
+  nav.style.top = banner.offsetHeight + 'px';
 }
 updateNavTop();
 window.addEventListener('resize', updateNavTop, { passive: true });
@@ -1244,17 +1242,6 @@ function handleScroll() {
   // 1. Progress bar
   const pct = currentScrollY / (document.documentElement.scrollHeight - window.innerHeight) * 100;
   bar.style.width = pct + '%';
-
-  // 2. Banner visibility — fade out after 80px, fade back in near top
-  const banner = document.getElementById('slots-banner');
-  const bannerHeight = banner.offsetHeight;
-  if (currentScrollY > 300) {
-    banner.classList.add('banner-hidden');
-    nav.style.top = '0px';
-  } else {
-    banner.classList.remove('banner-hidden');
-    nav.style.top = bannerHeight + 'px';
-  }
 
   // 3. Nav compact
   nav.classList.toggle('scrolled', currentScrollY > 80);
